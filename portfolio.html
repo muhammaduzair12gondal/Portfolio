@@ -646,7 +646,7 @@ footer {
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact" class="nav-cta">Hire Me</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -890,7 +890,10 @@ footer {
 // Hamburger
 const ham = document.getElementById('hamburger');
 const nav = document.getElementById('nav-links');
-ham.addEventListener('click', () => nav.classList.toggle('open'));
+ham.addEventListener('click', () => {
+  const isOpen = nav.classList.toggle('open');
+  ham.setAttribute('aria-expanded', String(isOpen));
+});
 
 // Typewriter
 const roles = [
@@ -925,12 +928,10 @@ window.addEventListener('mousemove', (e) => {
   
   // Hero dynamic background perspective
   if (heroBg) {
-    if (e.target !== heroBg) {
-      const xRatio = Math.round((mouseX / window.innerWidth) * 100);
-      const yRatio = Math.round((mouseY / window.innerHeight) * 100);
-      heroBg.style.setProperty('--mouse-x', `${xRatio}%`);
-      heroBg.style.setProperty('--mouse-y', `${yRatio}%`);
-    }
+    const xRatio = Math.round((mouseX / window.innerWidth) * 100);
+    const yRatio = Math.round((mouseY / window.innerHeight) * 100);
+    heroBg.style.setProperty('--mouse-x', `${xRatio}%`);
+    heroBg.style.setProperty('--mouse-y', `${yRatio}%`);
   }
 });
 
