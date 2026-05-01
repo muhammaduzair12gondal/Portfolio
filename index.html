@@ -69,11 +69,6 @@
       z-index: -3;
     }
 
-    /* ── NOISE OVERLAY ── */
-    .noise-overlay {
-      display: none;
-      /* Removing the SVG noise filter as it severely impacts mouse framing & rendering performance on larger screens */
-    }
 
     /* ── GLOBAL ANIMATED BACKGROUND (REACT BITS STYLE) ── */
     .site-bg {
@@ -1344,10 +1339,21 @@
           </a>
         </div>
 
+        <p
+          style="font-size: clamp(1rem, 1.2vw, 1.1rem); color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; max-width: 650px; font-weight: 400;">
+          Full-stack developer & AI integration specialist. I build fast, modern web applications — from high-converting
+          landing pages to intelligent, AI-powered platforms — using React, Next.js, Node.js & Python.
+        </p>
+
         <div style="display: flex; gap: 1.5rem; margin-bottom: 3.5rem;">
           <a href="#projects" class="btn-primary"
-            style="background: #ff6b00; box-shadow: 0 0 20px rgba(255, 107, 0, 0.4); padding: 0.8rem 2.5rem; border-radius: 8px;">View
+            style="background: #ff6b00; box-shadow: 0 0 20px rgba(255, 107, 0, 0.4); padding: 0.8rem 2.5rem; border-radius: 8px; text-decoration: none; color: white; display: inline-block;">View
             My Work</a>
+          <a href="#contact" class="btn-secondary"
+            style="border: 1px solid rgba(255,255,255,0.15); background: transparent; color: white; padding: 0.8rem 2.5rem; border-radius: 8px; text-decoration: none; display: inline-block; transition: 0.3s;"
+            onmouseover="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.3)';"
+            onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.15)';">Get In
+            Touch</a>
         </div>
 
         <!-- Experience Stats Box (Hero) -->
@@ -1798,25 +1804,6 @@
       animate();
     }
 
-    // Tilt Effect for Skills and Projects
-    const tiltElements = document.querySelectorAll('.skill-card, .project-card');
-    tiltElements.forEach(el => {
-      el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Calculate rotation (-10 to 10 deg)
-        const rotateX = ((y / rect.height) - 0.5) * -15;
-        const rotateY = ((x / rect.width) - 0.5) * 15;
-
-        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-
-      el.addEventListener('mouseleave', () => {
-        el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-      });
-    });
 
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
