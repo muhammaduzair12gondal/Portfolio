@@ -361,6 +361,52 @@
       opacity: 0;
     }
 
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(260px, 45vw, 560px);
+      margin: 0 auto;
+      aspect-ratio: 1 / 1;
+    }
+
+    .hero-visual-circle {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .hero-visual-circle::before {
+      content: '';
+      position: absolute;
+      inset: -12%;
+      background: radial-gradient(circle at 40% 25%, rgba(124, 92, 252, 0.18), transparent 55%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-visual-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      z-index: 2;
+      background: transparent;
+    }
+
     .btn-primary {
       background: var(--accent);
       color: #fff;
@@ -1018,10 +1064,16 @@
     .zz-visual img {
       width: 100%;
       border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.55);
       display: block;
       object-fit: cover;
       aspect-ratio: 16/10;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .zz-project:hover .zz-visual img {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 35px 60px rgba(0, 0, 0, 0.65);
     }
 
     .zz-label {
@@ -1042,15 +1094,43 @@
     }
 
     .zz-glass-box {
-      background: rgba(255, 255, 255, 0.04);
+      background: linear-gradient(140deg, rgba(124, 92, 252, 0.12), rgba(15, 15, 25, 0.85));
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(124, 92, 252, 0.22);
       padding: 2rem;
       border-radius: 16px;
       color: var(--text-muted);
       font-size: 1rem;
       line-height: 1.7;
+      box-shadow: 0 20px 40px rgba(4, 4, 12, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .zz-glass-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(124, 92, 252, 0.18), transparent 55%);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .zz-link {
+      color: var(--text);
+      border: 1px solid rgba(124, 92, 252, 0.35);
+      background: rgba(124, 92, 252, 0.1);
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .zz-link:hover {
+      background: rgba(124, 92, 252, 0.25);
+      border-color: rgba(124, 92, 252, 0.6);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(124, 92, 252, 0.3);
     }
 
     @media(max-width: 899px) {
@@ -1377,16 +1457,10 @@
       </div>
 
       <!-- RIGHT VISUAL -->
-      <div
-        style="position: relative; display: flex; justify-content: center; align-items: flex-end; width: 100%; max-width: clamp(300px, 45vw, 600px); margin: 0 auto; aspect-ratio: 1 / 1;">
-        <!-- Clean, appropriately sized dark circle backdrop matching website theme -->
-        <div
-          style="position: absolute; inset: 0; background: var(--surface); border: 1px solid rgba(255,255,255,0.02); border-radius: 50%; z-index: -1;">
+      <div class="hero-visual">
+        <div class="hero-visual-circle">
+          <img class="hero-visual-image" src="new_transparent_image.jpg" alt="Muhammad Uzair">
         </div>
-
-        <!-- Profile Picture properly keyed & perfectly centered horizontally -->
-        <img src="new_transparent_image.jpg" alt="Muhammad Uzair"
-          style="width: auto; height: 105%; max-width: 130%; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 1; object-fit: contain; object-position: bottom center;">
       </div>
     </div>
     <div class="hero-scroll">
@@ -1634,6 +1708,58 @@
           </div>
           <div class="zz-visual">
             <img src="./2.PNG" alt="AquaYield Platform UI">
+          </div>
+        </div>
+
+        <div class="zz-project reverse reveal">
+          <div class="zz-info">
+            <span class="zz-label">NLP Platform</span>
+            <h3 class="zz-title">Customer Review Intelligence Platform</h3>
+            <div class="zz-glass-box">
+              <p style="margin-bottom: 1rem;">Basic AI struggles with mixed reviews, so I built an NLP pipeline that
+                reads feedback like a human—separating emotions, flagging bots, and clustering insights into actionable
+                themes.</p>
+              <ul style="list-style-type: none; margin-bottom: 1.5rem; font-size: 0.9em; padding-left: 0;">
+                <li style="margin-bottom: 0.4rem;">🔹 <strong>Aspect-Based Sentiment (ABSA):</strong> Scores individual
+                  features ("Good Product Quality" ✅ vs. "Late Delivery" ❌) with no sentiment bleed.</li>
+                <li style="margin-bottom: 0.4rem;">🔹 <strong>Fake Review Detection:</strong> XGBoost + Random Forest
+                  ensemble using behavioral heuristics to detect bots and paid reviews.</li>
+                <li style="margin-bottom: 0.4rem;">🔹 <strong>Smart Topic Modeling:</strong> BERTopic clusters feedback
+                  into themes like Shipping or Customer Service.</li>
+                <li style="margin-bottom: 0.4rem;">🔹 <strong>FastAPI Engine:</strong> Backend deployed on Hugging Face;
+                  frontend deployed on Vercel.</li>
+              </ul>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                <a href="https://customer-review-intelligence-h2k7drvfv.vercel.app/" target="_blank" class="zz-link"
+                  style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; padding: 0.5rem 1rem; border-radius: 8px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg> View Deployment
+                </a>
+                <a href="https://github.com/muhammaduzair12gondal/customer-review-intelligence" target="_blank" class="zz-link"
+                  style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; padding: 0.5rem 1rem; border-radius: 8px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg> GitHub & Architecture
+                </a>
+                <a href="https://www.linkedin.com/posts/muhammad-uzair-437b452b0_nlp-machinelearning-datascience-ugcPost-7459232261247483904-4cP1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAErrbCsBHFm2Qzu6oD_WHUGEU9uwN5E7qf0"
+                  target="_blank" class="zz-link"
+                  style="text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; padding: 0.5rem 1rem; border-radius: 8px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg> LinkedIn Post
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="zz-visual">
+            <img src="./p1.PNG" alt="Customer Review Intelligence Platform">
           </div>
         </div>
 
